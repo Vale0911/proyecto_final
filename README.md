@@ -1,0 +1,1 @@
+Una calculadora de nómina diseñada como una herramienta tecnológica backend para emprendimientos, utilizando Python con Flask como servidor. La interfaz gráfica está basada en HTML y CSS, mientras que los cálculos y validaciones se realizan en el backend.
