@@ -1,0 +1,515 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % Tipografía moderna
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+% Estilo de portada
+\newtcolorbox{portadabox}[2][]{colback=white!5!gray, colframe=black,
+title=#2, fonttitle=\bfseries, #1}
+
+% Configuración de encabezados
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Proyecto de Programación: Calculadora de Nómina}
+\fancyhead[R]{2024}
+\fancyfoot[C]{\thepage}
+
+% Configuración de estilo de código
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    stepnumber=1,
+    numbersep=8pt,
+    backgroundcolor=\color{white},
+    frame=single,
+    breaklines=true,
+    breakatwhitespace=true,
+    captionpos=b,
+    showspaces=false,
+    showstringspaces=false,
+    tabsize=4
+}
+
+% Estilo de títulos
+\titleformat{\section}{\normalfont\Large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries}{\thesubsection}{1em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+
+% Divisores decorativos
+\newcommand{\divider}{
+    \begin{center}
+        \tikz{\draw[thick, color=gray] (0,0) -- (15,0);}
+    \end{center}
+}
+
+% Configuración de hipervínculos
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,
+    urlcolor=cyan,
+    pdftitle={Calculadora de Nómina},
+    pdfpagemode=FullScreen,
+}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+        
+        % Borde decorativo
+        \begin{portadabox}[width=\textwidth]{}
+            \begin{center}
+                \includegraphics[width=0.3\textwidth]{Logo_URosario.png} % Logo de la universidad
+                \vspace{1cm}
+                
+                \Huge\textbf{Proyecto Programación}\\[1cm]
+                \Large\textbf{Calculadora de Nómina}\\[2cm]
+                \Large\textbf{Documentación}\\[2cm]
+                \Large\textbf{2024}\\[2cm]
+            \end{center}
+        \end{portadabox}
+    \end{center}
+\end{titlepage}
+
+% Roles de los integrantes
+\section*{Roles de los Integrantes}
+\begin{itemize}
+    \item \textbf{Thomas Ayala}: Gerente.
+    \item \textbf{Felipe Sierra}: Diseño.
+    \item \textbf{Valentina Mesa}: Documentación y pruebas.
+\end{itemize}
+
+\divider
+
+\tableofcontents
+\newpage
+
+% Introducción
+\section{Introducción}
+
+El proyecto \textbf{Calculadora de Nómina} es una herramienta tecnológica backend diseñada para emprendimientos que necesiten gestionar nóminas de manera eficiente. Este sistema permite:
+\begin{itemize}
+    \item Ingresar datos de empleados y calcular sus salarios.
+    \item Manejar la gestión de contraseñas para garantizar la seguridad.
+    \item Registrar datos en un archivo CSV para futuras consultas.
+    \item Ofrecer una interfaz gráfica basada en \texttt{pygame}.
+\end{itemize}
+
+El código del proyecto está alojado en el repositorio oficial: \url{https://github.com/Vale0911/proyecto_final}.
+
+\divider
+
+% Requisitos
+\section{Requisitos}
+
+\begin{itemize}
+    \item \textbf{Sistema operativo}: Windows, MacOS o Linux.
+    \item \textbf{Librerías necesarias}:
+    \begin{itemize}
+        \item \texttt{pygame}
+        \item \texttt{flask}
+    \end{itemize}
+    \item \textbf{Resolución recomendada para Pygame}: 800x600 px.
+    \item \textbf{Instalación}: Asegúrate de ejecutar:
+    \begin{lstlisting}
+    pip install -r requirements.txt
+    \end{lstlisting}
+\end{itemize}
+
+\divider
+
+% Manual de Usuario
+\section{Manual de Usuario}
+
+\begin{enumerate}
+    \item Se debe tener instalado Python
+    \item  Copiar el link de la terminal.
+    \item Abre un navegador y accede a \url{http://localhost:5000}. (Ejemplo de como se ve.)
+    \item Ingresa los datos requeridos: (Pygame)
+    \begin{itemize}
+        \item \textbf{ID del empleado}.
+        \item \textbf{Horas trabajadas}.
+        \item \textbf{Horas extras}.
+    \end{itemize}
+    \item Haz clic en "Calcular" para obtener el salario total.
+    \item Los datos serán almacenados en formato CSV para futuras consultas.
+\end{enumerate}
+
+\divider
+
+% Guía de Código
+\section{Guía Interna del Código}
+
+\subsection{Resumen de las funciones principales}
+\begin{itemize}
+    \item \textbf{Versión 2:}Mejora la interfaz utilizando Flask para conectar el backend con el frontend de HTML y CSS.
+    \item \textbf{Versión 1:}Utiliza Pygame para la interfaz gráfica.
+    
+\end{itemize}
+
+\subsection{Estructura del código}
+\textbf{Arquitectura general:}Cliente-servidor.
+
+
+\textbf{Organización de los Archivos y Carpetas del Proyecto:}
+\begin{itemize}
+    \item \textbf{proyecto/version1/:}Contiene la implementación basada en Pygame.
+    \item \textbf{proyecto/version2/:}Contiene la implementación mejorada con Flask.
+\end{itemize}
+\textbf{Archivos principales:}
+\begin{itemize}
+    \item\textbf{proyecto/version1/Backend/calc.py:} Código de la versión 1.
+    \item \textbf{proyecto/version2/main.py:} Código de la versión 2.
+    \item \textbf{proyecto/version2/templates/inicio.html:}Página de inicio.
+    \item \textbf{proyecto/version2/templates/login.html:} Página de login.
+    
+\end{itemize}
+
+\subsection{Tecnologías utilizadas}
+\begin{enumerate}
+    \item \textbf{Lenguajes de Programación:}
+    \begin{itemize}
+            \item \texttt{Python} 
+            \item \texttt{HTML}
+            \item \texttt{CSS}
+        \end{itemize}
+    \item \textbf{Frameworks y Librerías:}
+    \begin{itemize}
+        \item \textbf{Versión 1:}\texttt{Pygame}
+        \item \textbf{Versión 2:}\texttt{Flask}
+    \end{itemize}
+    \item \textbf{Requisitos del Entorno:}
+    \begin{itemize}
+        \item \texttt{Python 3.x}
+        \item \texttt{Flask}
+        \item \texttt{Pygame}
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Componentes clave}
+
+\textbf{BaseDeDatos:} Clase para manejar la base de datos de usuarios. Este módulo gestiona las operaciones básicas de almacenamiento, recuperación y validación de usuarios mediante un archivo JSON. Permite agregar nuevos usuarios y validar credenciales existentes.
+
+\begin{lstlisting}[language=Python, caption={Clase BaseDeDatos}]
+class BaseDeDatos:
+    def __init__(self):
+        self.archivo = 'usuarios.json'
+        self.usuarios = self.cargar_usuarios()
+
+    def cargar_usuarios(self):
+        if os.path.exists(self.archivo):
+            with open(self.archivo, 'r') as f:
+                return json.load(f)
+        return {}
+
+    def guardar_usuarios(self):
+        with open(self.archivo, 'w') as f:
+            json.dump(self.usuarios, f)
+
+    def agregar_usuario(self, usuario, contrasena):
+        if usuario in self.usuarios:
+            return False
+        self.usuarios[usuario] = contrasena
+        self.guardar_usuarios()
+        return True
+
+    def validar_usuario(self, usuario, contrasena):
+        return self.usuarios.get(usuario) == contrasena
+\end{lstlisting}
+
+\textbf{main.py:} Archivo principal que inicializa y ejecuta la aplicación Flask. Este archivo gestiona las rutas y las vistas principales de la aplicación, sirviendo como punto de entrada para el servidor Flask. Permite renderizar las páginas de inicio y login.
+
+\begin{lstlisting}[language=Python, caption={Archivo main.py}]
+from flask import Flask, render_template, request, redirect, url_for, session
+
+app = Flask(__name__)
+
+@app.route("/")
+def inicio():
+    return render_template("inicio.html")
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    # Lógica de autenticación
+    pass
+
+if __name__ == '__main__':
+    app.run(debug=True)
+\end{lstlisting}
+
+\subsection{Interacciones Entre Módulos}
+
+\begin{itemize}
+    \item En la versión 2, \textbf{Flask} actúa como intermediario entre el usuario y los componentes del backend.
+    \item La clase \texttt{BaseDeDatos} se utiliza para manejar la lógica de persistencia de datos, mientras que las plantillas HTML renderizan el contenido dinámico para el usuario.
+\end{itemize}
+
+\subsection{Funciones Representativas de la Interfaz Pygame}
+
+En la \textbf{versión 1}, se emplean funciones para manejar eventos y presentar botones en pantalla. Ejemplo de la página de inicio:
+
+\begin{lstlisting}[language=Python, caption={Función manejar\_pagina\_inicio}]
+def manejar_pagina_inicio():
+    pantalla.fill(BLANCO)
+    mostrar_texto("Gestión de Usuarios y Nómina", 240, 50, NEGRO)
+    boton_crear_usuario = crear_boton("Crear Usuario", 300, 200, 200, 50, AZUL, BLANCO)
+    boton_iniciar_sesion = crear_boton("Iniciar Sesión", 300, 300, 200, 50, VERDE, BLANCO)
+    return {"crear_usuario": boton_crear_usuario, "iniciar_sesion": boton_iniciar_sesion}
+\end{lstlisting}
+
+\subsection{Funciones Importantes para la Nómina}
+
+\textbf{1. Agregar Usuario:} Esta función permite registrar nuevos usuarios en un archivo CSV, asegurando la persistencia de datos.
+
+\begin{lstlisting}[language=Python, caption={Función agregar\_usuario}]
+def agregar_usuario(email, password_hash):
+    with open('usuarios.csv', mode='a', newline='') as archivo:
+        escritor = csv.writer(archivo)
+        escritor.writerow([email, password_hash])
+\end{lstlisting}
+
+\textbf{2. Validación de Usuarios:} Método en la clase \texttt{BaseDeDatos} que compara credenciales con los datos existentes.
+
+\begin{lstlisting}[language=Python, caption={Método validar\_usuario}]
+def validar_usuario(self, usuario, contrasena):
+    return self.usuarios.get(usuario) == contrasena
+\end{lstlisting}
+
+\textbf{3. Cálculo de Nómina:} Aunque solo es un esquema inicial, este método prevé realizar cálculos automáticos de salarios y deducciones.
+
+\begin{lstlisting}[language=Python, caption={Esquema inicial para el cálculo de nómina}]
+def calculador_nomina():
+    # Configuración inicial
+    # Captura interactiva
+    # Validar entrada de datos
+    # Buscar al empleado
+    # Mostrar resultados
+    pass
+\end{lstlisting}
+
+% Comparación de Avances
+\section{Comparación de Avances Semanales}
+
+\subsection*{Semana 1: Configuración inicial}
+\begin{itemize}
+    \item Configuración básica de Pygame y diseño HTML/CSS inicial.
+    \item Problema: Cuadros de texto no alineados correctamente.
+    \begin{lstlisting}[language=Python]
+    
+import pygame
+pygame.init()
+
+c_base = (0,0,0) #negro
+c_rectangulo = (169, 169, 169)  # gris
+c_texto = (255, 255, 255) # blanco
+Largo = 1000  #lagro y acnho de la venta
+Ancho = 700
+
+screen = pygame.display.set_mode((Largo, Ancho)) # define screen y ademas define el largo y anho de la ventana
+pygame.display.set_caption('Calculador de nomina') # literalmente solo nombra la ventaa xd\
+fuente = pygame.font.SysFont(None, 40) #fuente para e texto creo que es arial segun reddit no lo es pero no onfio en esos locos]
+
+
+def texto_id():
+    
+    rect_x = 100 #posicion x del rectangulo
+    rect_y = 100 #posicion y del rectangulo
+    rect_ancho = 300 #tamano del rectangulo
+    rect_alto = 50 #ancho del rectangulo
+
+    pygame.draw.rect(screen, c_rectangulo, (rect_x, rect_y, rect_ancho, rect_alto)) #literalmente solo dibuje
+    
+    texto = fuente.render("Id del Empleado", True, c_texto) #que texto quiero que salga en el recatangulo
+
+    screen.blit(texto, (rect_x + 50, rect_y +10)) #margenes del texto
+
+def texto_horas():
+    
+    rect_x = 100 
+    rect_y = 200 
+    rect_ancho = 300 
+    rect_alto = 50 #
+
+    pygame.draw.rect(screen, c_rectangulo, (rect_x, rect_y, rect_ancho, rect_alto)) 
+    
+    texto = fuente.render("horas trabajdas " , True, c_texto) 
+
+    screen.blit(texto, (rect_x + 40, rect_y +10)) 
+
+def texto_extas():
+    
+    rect_x = 100 
+    rect_y = 300 
+    rect_ancho = 300 
+    rect_alto = 50 #
+
+    pygame.draw.rect(screen, c_rectangulo, (rect_x, rect_y, rect_ancho, rect_alto)) 
+    
+    texto = fuente.render("horas extras " , True, c_texto) 
+
+    screen.blit(texto, (rect_x + 70, rect_y +10))
+
+def main():
+    running = True # para que no se cierre la ventana
+    while running:
+        screen.fill(c_base) #darle un color a la ventana
+        texto_id()
+        texto_horas()
+        texto_extas()
+        dibujar_input_rects()
+        pygame.display.flip() #no se ccierre la ventana
+        
+    pygame.quit() #cerrar la ventana
+
+if __name__ == "__main__": #correr el codigo NO TOCAR (no se como funciona)
+    main()
+    \end{lstlisting}
+\end{itemize}
+
+\subsection*{Semana 2: Avances en interactividad}
+\begin{itemize}
+    \item Implementación de cuadros de entrada interactivos.
+    \item Problema: Manejo inadecuado de eventos para entrada de texto.
+
+    \begin{lstlisting}[language=python]
+        
+import pygame
+pygame.init()
+
+c_base = (0,0,0) #negro
+c_rectangulo = (169, 169, 169)  # gris
+c_texto = (255, 255, 255) # blanco
+Largo = 1000  #lagro y acnho de la venta
+Ancho = 700
+
+input_rects = [pygame.Rect(600, 100, 300, 50), pygame.Rect(600, 200, 300, 50), pygame.Rect(600, 300, 300, 50)]
+input_textos = ["", "", "", ]  # Lista de textos para cada cuadro
+input_activo = [False, False, False,]  # Lista de estados de activación para cada cuadro
+
+
+screen = pygame.display.set_mode((Largo, Ancho)) # define screen y ademas define el largo y anho de la ventana
+pygame.display.set_caption('Calculador de nomina') # literalmente solo nombra la ventaa xd\
+fuente = pygame.font.SysFont(None, 40) #fuente para e texto creo que es arial segun reddit no lo es pero no onfio en esos locos]
+
+
+def texto_id():
+    
+    rect_x = 100 #posicion x del rectangulo
+    rect_y = 100 #posicion y del rectangulo
+    rect_ancho = 300 #tamano del rectangulo
+    rect_alto = 50 #ancho del rectangulo
+
+    pygame.draw.rect(screen, c_rectangulo, (rect_x, rect_y, rect_ancho, rect_alto)) #literalmente solo dibuje
+    
+    texto = fuente.render("Id del Empleado", True, c_texto) #que texto quiero que salga en el recatangulo
+
+    screen.blit(texto, (rect_x + 50, rect_y +10)) #margenes del texto
+
+def texto_horas():
+    
+    rect_x = 100 
+    rect_y = 200 
+    rect_ancho = 300 
+    rect_alto = 50 #
+
+    pygame.draw.rect(screen, c_rectangulo, (rect_x, rect_y, rect_ancho, rect_alto)) 
+    
+    texto = fuente.render("horas trabajdas " , True, c_texto) 
+
+    screen.blit(texto, (rect_x + 40, rect_y +10)) 
+
+def texto_extas():
+    
+    rect_x = 100 
+    rect_y = 300 
+    rect_ancho = 300 
+    rect_alto = 50 #
+
+    pygame.draw.rect(screen, c_rectangulo, (rect_x, rect_y, rect_ancho, rect_alto)) 
+    
+    texto = fuente.render("horas extras " , True, c_texto) 
+
+    screen.blit(texto, (rect_x + 70, rect_y +10))
+
+def dibujar_input_rects():
+    for i, rect in enumerate(input_rects):
+        pygame.draw.rect(screen, c_texto, rect)
+        texto = fuente.render(input_textos[i], True, c_base)
+        screen.blit(texto, (rect.x + 40, rect.y + 10))
+
+
+def main():
+    running = True # para que no se cierre la ventana
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                for i, rect in enumerate(input_rects):
+                    if rect.collidepoint(event.pos):
+                        input_activo = [False] * len(input_rects)  # Desactivar todo xd
+                        input_activo[i] = True  # Activar el input seleccionado
+                        break
+
+            if event.type == pygame.KEYDOWN:
+                for i, activo in enumerate(input_activo):
+                    if activo:  # para que el imput solo se deje cuando uno le de click
+                        if event.key == pygame.K_BACKSPACE: #boton de borado sirve graias a dios
+                            input_textos[i] = input_textos[i][:-1]
+                        elif event.key == pygame.K_RETURN:
+                            print(f"Texto ingresado en cuadro {i+1}: {input_textos[i]}") # prueba por que no confio en mi mismo
+                            input_activo[i] = False  # dejar de esribir cunado se le de ente al escribri
+                        else:
+                            input_textos[i] += event.unicode #caracteres especiales
+
+        screen.fill(c_base) #darle un color a la ventana
+        texto_id()
+        texto_horas()
+        texto_extas()
+        dibujar_input_rects()
+        pygame.display.flip() #no se ccierre la ventana
+        
+    pygame.quit() #cerrar la ventana
+
+
+if __name__ == "__main__": #correr el codigo NO TOCAR (no se como funciona)
+    main()
+    \end{lstlisting}
+\end{itemize}
+
+\subsection*{Semana 3: Código final}
+\begin{itemize}
+    \item Integración de backend, frontend y base de datos.
+    \item Implementación funcional de manejo de nóminas.
+\end{itemize}
+
+\divider
+
+% Conclusión
+\section{Conclusión}
+
+El proyecto \textbf{Calculadora de Nómina} permitió combinar habilidades técnicas en Python y diseño web para construir una solución funcional y robusta. A través de iteraciones semanales, se resolvieron problemas clave y se logró integrar todas las funcionalidades necesarias para una experiencia de usuario fluida.
+
+\end{document}
+
