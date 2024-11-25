@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filtrar Empleados por Departamento</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f4f4f4;
+      padding: 0;
+      margin: 0;
+    }
+
+    .navbar {
+      background-color: #007bff;
+      padding: 15px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .navbar a:hover {
+      background-color: #0056b3;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    select, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 5px;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .estadisticas {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .estadisticas h3 {
+      text-align: center;
+    }
+
+    .estadisticas-adicionales {
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #e9ecef;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .estadisticas-adicionales h3 {
+      text-align: center;
+    }
+
+    .estadisticas-adicionales p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <a href="{{ url_for('generar_nomina') }}">Nómina</a>
+    <a href="{{ url_for('filtrar_departamento') }}">Filtros</a>
+  </div>
+
+  <div class="container">
+    <h2>Filtrar Empleados por Departamento</h2>
+
+    <form method="POST" action="{{ url_for('filtrar_departamento') }}">
+      <label for="departamento">Selecciona el Departamento:</label>
+      <select name="departamento" id="departamento" required>
+        <option value="" disabled selected>Seleccione un departamento</option>
+        {% for departamento in departamentos %}
+          <option value="{{ departamento }}" {% if departamento == request.form['departamento'] %} selected {% endif %}>{{ departamento }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit">Filtrar</button>
+    </form>
+
+    {% if error %}
+      <p style="color: red; text-align: center;">{{ error }}</p>
+    {% endif %}
+
+    {% if estadisticas %}
+      <div class="estadisticas">
+        <h3>Estadísticas del Departamento: {{ estadisticas.departamento }}</h3>
+        <p><strong>Empleado con mayor salario:</strong> {{ estadisticas.max_salario_empleado['Full_name'] }} ({{ estadisticas.max_salario_empleado['salario_base'] }})</p>
+        <p><strong>Empleado con más horas extra diurnas:</strong> {{ estadisticas.max_horas_extra_diurnas_empleado['Full_name'] }} ({{ estadisticas.max_horas_extra_diurnas_empleado['pago_horas_extra_diurnas'] }} horas)</p>
+        <p><strong>Empleado con más horas extra nocturnas:</strong> {{ estadisticas.max_horas_extra_nocturnas_empleado['Full_name'] }} ({{ estadisticas.max_horas_extra_nocturnas_empleado['pago_horas_extra_nocturnas'] }} horas)</p>
+        <p><strong>Empleado con más faltas:</strong> {{ estadisticas.max_faltas_empleado['Full_name'] }} ({{ estadisticas.max_faltas_empleado['Ausencias'] }} faltas)</p>
+        <p><strong>Empleado que entra más temprano:</strong> {{ estadisticas.min_entrada_empleado['Full_name'] }} ({{ estadisticas.min_entrada_empleado['Hora_entrada'] }})</p>
+        <p><strong>Empleado que sale más tarde:</strong> {{ estadisticas.max_salida_empleado['Full_name'] }} ({{ estadisticas.max_salida_empleado['Hora_salida'] }})</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="estadisticas-adicionales">
+    <h3>Estadísticas Adicionales por Departamento</h3>
+
+    <p>El departamento que más cobra es: {{ estadisticas_adicionales.departamento_mas_cobra }} con un total de {{ estadisticas_adicionales.max_total_neto_pagar | float | round(2) }}.</p>
+    <p>El departamento con más ausencias es: {{ estadisticas_adicionales.departamento_mas_ausencias }} con {{ estadisticas_adicionales.max_ausencias }} ausencias.</p>
+    <p>El departamento que más temprano llega es: {{ estadisticas_adicionales.departamento_mas_temprano }} con una hora promedio de llegada de {{ estadisticas_adicionales.hora_promedio_entrada_early | float | round(2) }}.</p>
+    <p>El departamento que más tarde sale es: {{ estadisticas_adicionales.departamento_mas_tarde }} con una hora promedio de salida de {{ estadisticas_adicionales.hora_promedio_salida_late | float | round(2) }}.</p>
+    <p>El departamento con más horas extra es: {{ estadisticas_adicionales.departamento_mas_horas_extra }} con un total de {{ estadisticas_adicionales.max_horas_extra | float | round(2) }} horas extra.</p>
+  </div>
+
+</body>
+</html>

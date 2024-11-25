@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Nóminas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Generador de Nóminas</h1>
+        <form method="POST">
+            <label for="nombre">Nombre del Empleado:</label>
+            <input type="text" name="nombre" required>
+
+            <label for="salario">Salario Base ($):</label>
+            <input type="number" name="salario" step="0.01" required>
+
+            <label for="horas">Horas Trabajadas:</label>
+            <input type="number" name="horas" step="0.01" required>
+
+            <button type="submit">Generar Nómina</button>
+        </form>
+
+        {% if nombre %}
+        <div id="resultado">
+            <h2>Nómina Generada:</h2>
+            <p>Empleado: {{ nombre }}</p>
+            <p>Salario Total: ${{ salario_final }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

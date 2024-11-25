@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Form</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+      margin: 0;  /* Elimina márgenes del body */
+      padding: 0; /* Elimina el padding del body */
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px;  /* Margen inferior para separar botones */
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .sign-up {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .sign-up a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .sign-up a:hover {
+      text-decoration: underline;
+    }
+
+    /* Aseguramos que el contenedor esté centrado */
+    .main-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="container">
+      <h2>Bienvenido</h2>
+
+      <!-- Botón de Login -->
+      <a href="{{ url_for('login') }}">
+        <button>Iniciar sesión</button>
+      </a>
+
+      <!-- Botón de Crear cuenta -->
+      <a href="{{ url_for('crear_perfil') }}">
+        <button>Crear cuenta</button>
+      </a>
+    </div>
+  </div>
+
+</body>
+</html>

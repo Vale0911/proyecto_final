@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estadísticas del Departamento</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            margin: 20px auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        .estadisticas p {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Estadísticas del Departamento: {{ estadisticas.departamento }}</h2>
+    
+    <div class="estadisticas">
+        <p><strong>Empleado con mayor salario:</strong> {{ estadisticas.max_salario_empleado['name'] }} ({{ estadisticas.max_salario_empleado['salario_base'] }})</p>
+        
+        <!-- Empleado con menor salario (total neto) -->
+        <p><strong>Empleado con menor salario (total neto):</strong>
+            {% if estadisticas.min_pago_empleado %}
+                {{ estadisticas.min_pago_empleado['Full_name'] }} 
+                <!-- Asegúrate de sumar salario_base, horas extra diurnas y nocturnas -->
+                ({{ estadisticas.min_pago_empleado['salario_base'] + estadisticas.min_pago_empleado['pago_horas_extra_diurnas'] + estadisticas.min_pago_empleado['pago_horas_extra_nocturnas'] }})
+            {% else %}
+                No disponible
+            {% endif %}
+        </p>
+
+        <p><strong>Promedio de hora de entrada:</strong> {{ estadisticas.promedio_entrada }}</p>
+        <p><strong>Promedio de hora de salida:</strong> {{ estadisticas.promedio_salida }}</p>
+        
+        <p><strong>Empleado con más faltas:</strong> {{ estadisticas.max_faltas_empleado['name'] }} ({{ estadisticas.max_faltas_empleado['Ausencias'] }})</p>
+        <p><strong>Empleado con menos faltas:</strong> {{ estadisticas.min_faltas_empleado['name'] }} ({{ estadisticas.min_faltas_empleado['Ausencias'] }})</p>
+    </div>
+</div>
+
+</body>
+</html>
